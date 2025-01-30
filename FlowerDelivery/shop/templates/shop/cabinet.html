@@ -8,4 +8,19 @@
 
     <p>ваши заказы</p>
 
+{% for order in orders %}
+	<div>
+		<h3> {{ order.user }} </h3>
+		<p> {{ order.goods }} </p>
+	</div>
+{% endfor %}
+
+{% for good in goods %}
+	<div>
+		<h3> {{ good.good_title }} </h3>
+		<p> {{ good.price }} </p>
+	</div>
+{% endfor %}
+
+
 {% endblock %}

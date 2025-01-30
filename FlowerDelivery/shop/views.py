@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Good, Order
 
 
 # Create your views here.
@@ -11,4 +12,6 @@ def registration(request):
 
 
 def cabinet(request):
-    return render(request, 'shop/cabinet.html')
+    goods = Good.objects.all()
+    orders = Order.objects.all()
+    return render(request, 'shop/cabinet.html', {'goods': goods, 'orders': orders})
