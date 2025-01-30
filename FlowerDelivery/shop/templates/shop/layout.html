@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     {% block title %}
@@ -19,16 +20,14 @@
             <aside class="col-md-3 bg-light p-4">
                 <h4>Навигация</h4>
                 <ul class="list-unstyled">
-                    <li><a href="" class="text-dark">Выбор букетов</a></li>
-                    <li><a href="" class="text-dark">Мои заказы</a></li>
+                    <li><a href="{% url 'home' %}" class="text-dark">Выбор букетов</a></li>
+                    <li><a href="{% url 'cabinet' %}" class="text-dark">Мои заказы</a></li>
                 </ul>
             </aside>
 
             <main class="col-md-9 p-4">
                 <h1 class="text-center">Добро пожаловать в наш магазин!</h1>
-                <div class="text-center">
-                    <img src="{% static 'shop/img/1193.jpg' %}" alt="букет" class="img-fluid" width="150px">
-                </div>
+
 
                 {% block content %}
                 <p class="mt-4">Здесь будет ваш контент.</p>
@@ -36,6 +35,10 @@
             </main>
         </div>
     </div>
+    <footer class="footer">
+        {% include 'shop/footer.html' %}
+    </footer>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

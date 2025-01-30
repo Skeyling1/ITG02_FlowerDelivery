@@ -1,3 +1,44 @@
-body{
-    background: rgba(0, 128, 0, 0.3) /* Green background with 30% opacity */;
+/* Общие настройки */
+body {
+    background-color: #f8f9fa; /* Светлый фон страницы */
+    font-family: Arial, sans-serif; /* Шрифт для всего сайта */
+}
+
+/* Стили для aside */
+aside {
+    border-right: 1px solid #dee2e6; /* Граница справа для aside */
+}
+
+/* Стили для заголовка в aside */
+aside h4 {
+    font-size: 1.5rem; /* Размер шрифта для заголовка */
+    margin-bottom: 1rem; /* Отступ снизу для заголовка */
+}
+
+/* Стили для ссылок в aside */
+aside a {
+    text-decoration: none; /* Убираем подчеркивание */
+    transition: color 0.3s ease; /* Плавный переход цвета при наведении */
+}
+
+aside a:hover {
+    color: #007bff; /* Цвет ссылки при наведении */
+}
+
+/* Стили для main */
+main h1 {
+    font-size: 2.5rem; /* Размер шрифта заголовка */
+    margin-bottom: 2rem; /* Отступ снизу для заголовка */
+}
+
+/* Стили для изображения */
+main img {
+    border-radius: 10px; /* Скругление углов изображения */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для изображения */
+}
+
+/* Стили для текстовых блоков */
+main p {
+    font-size: 1.2rem; /* Размер шрифта для текста */
+    color: #333; /* Цвет текста */
 }
