@@ -6,21 +6,18 @@
 
 {% block content %}
 
-    <p>ваши заказы</p>
+    <p>{{ username }} ваши заказы</p>
 
-{% for order in orders %}
-	<div>
-		<h3> {{ order.user }} </h3>
-		<p> {{ order.goods }} </p>
-	</div>
-{% endfor %}
-
-{% for good in goods %}
-	<div>
-		<h3> {{ good.good_title }} </h3>
-		<p> {{ good.price }} </p>
-	</div>
-{% endfor %}
+{% if orders %}
+				{% for order in orders %}
+					<div>
+						<h3> {{ username }} </h3>
+						<p> {{ order.goods }} </p>
+					</div>
+				{% endfor %}
+{% else %}
+		<h4>Товары пока не выбраны.</h4>
+{% endif %}
 
 
 {% endblock %}
