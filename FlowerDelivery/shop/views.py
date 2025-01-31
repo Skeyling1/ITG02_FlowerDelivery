@@ -35,6 +35,6 @@ def register(request):
 
 @login_required
 def cabinet(request):
-    orders = Order.objects.all()
+    orders = Order.objects.filter(user=request.user.username)
     username = request.user.username
     return render(request, 'shop/cabinet.html', {'orders': orders, 'username': username})
