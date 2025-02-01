@@ -3,6 +3,7 @@ from .forms import UserRegistrationForm, LoginForm, CustomerNotesForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .models import Good, Order
+import requests
 
 
 # Create your views here.
@@ -87,3 +88,27 @@ def cabinet(request):
     return render(request, 'shop/cabinet.html', {'orders': orders, 'username': username})
 
 
+
+
+
+def send_message(token, chat_id, message):
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {
+        'chat_id': chat_id,
+        'text': message
+    }
+
+    response = requests.post(url, json=payload)
+
+    if response.status_code == 200:
+        print("Сообщение отправлено успешно!")
+    else:
+        print("Ошибка при отправке сообщения:", response.text)
+
+
+if __name__ == "__main__":
+    bot_token = "YOUR_BOT_TOKEN"  # Замените на ваш токен
+    chat_id = "YOUR_CHAT_ID"  # Замените на ваш chat_id
+    message = "Привет, это сообщение из Python!"
+
+    send_message(bot_token, chat_id, message)
