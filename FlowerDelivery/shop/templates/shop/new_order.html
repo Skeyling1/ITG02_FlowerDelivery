@@ -17,9 +17,14 @@
 
 <button type="submit">Подтвердить</button>
 
-<form method="get">
-	<button type="button">Отменить</button>
+
+<form action="{% url 'del_new_order' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Отменить</button>
 </form>
+
+
+
 
 
 {% endblock %}

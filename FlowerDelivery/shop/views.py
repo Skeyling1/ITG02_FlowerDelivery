@@ -19,6 +19,20 @@ def index(request):
     return render(request, 'shop/index.html', {'goods': goods, 'username': username})
 
 
+@login_required
+def new_order(request):
+    orders = Order.objects.filter(user=request.user.username)
+    order = orders.last()
+    username = request.user.username
+    return render(request, 'shop/new_order.html', {'order': order, 'username': username})
+
+def del_new_order(request):
+    orders = Order.objects.filter(user=request.user.username)
+    order = orders.last()
+    order.delete()
+    return redirect('home')
+
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -61,12 +75,3 @@ def cabinet(request):
     return render(request, 'shop/cabinet.html', {'orders': orders, 'username': username})
 
 
-@login_required
-def new_order(request):
-    orders = Order.objects.filter(user=request.user.username)
-    order = orders.last()
-    username = request.user.username
-    if request.method == 'GET':
-        order.delete()
-        return redirect('home')
-    return render(request, 'shop/new_order.html', {'order': order, 'username': username})
