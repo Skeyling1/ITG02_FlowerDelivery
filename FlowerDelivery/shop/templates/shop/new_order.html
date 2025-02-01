@@ -1,4 +1,5 @@
 {% extends 'shop/layout.html' %}
+{% load static %}
 
 {% block title %}
     <title>ваш новый заказ</title>
@@ -8,17 +9,20 @@
 
     <p>{{ username }} ваш новый заказ</p>
 
-{% if order %}
-					<div>
-						<p> {{ order.goods }} </p>
-					</div>
-
-{% endif %}
-
-<form action="{% url 'approve_new_order' %}" method="post" >
+<form method="post" >
                 {% csrf_token %}
-                <button type="submit">Подтвердить</button>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'shop/img/1193.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ order.goods }}</h5>
+                            {{ form.as_p }}
+                            <button type="submit">Подтвердить</button>
+                        </div>
+                    </div>
 </form>
+
+
 
 
 

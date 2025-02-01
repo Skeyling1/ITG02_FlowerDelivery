@@ -25,8 +25,5 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
 
 
-class AdressForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ['adress']
+class CustomerNotesForm(forms.Form):
+        comment = forms.CharField(label="Комментарий", widget=forms.Textarea)

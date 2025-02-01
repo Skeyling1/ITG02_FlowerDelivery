@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistrationForm, LoginForm
+from .forms import UserRegistrationForm, LoginForm, CustomerNotesForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .models import Good, Order
@@ -24,7 +24,14 @@ def new_order(request):
     orders = Order.objects.filter(user=request.user.username)
     order = orders.last()
     username = request.user.username
-    return render(request, 'shop/new_order.html', {'order': order, 'username': username})
+    if request.method == 'POST':
+        form = CustomerNotesForm(request.POST)
+        if form.is_valid():
+            #отпрвавляем в ЧАТ имя, товар, коммент, картинку
+            return redirect('home')
+    else:
+        form = CustomerNotesForm()
+    return render(request, 'shop/new_order.html', {'order': order, 'username': username, 'form': form})
 
 def del_new_order(request):
     orders = Order.objects.filter(user=request.user.username)
@@ -34,6 +41,7 @@ def del_new_order(request):
 
 
 def approve_new_order(request):
+
     return redirect('home')
 
 
