@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistrationForm
-from django.contrib.auth import login, authenticate
+from .forms import UserRegistrationForm, LoginForm
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .models import Good, Order
 
@@ -30,6 +30,27 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'shop/registration.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = LoginForm()
+    return render(request, 'shop/login.html', {'form': form})
+
+
+@login_required
+def logout_view(request):
+    logout(request)  # Выход из системы
+    return redirect('home')  # Перенаправление на главную страницу или другую страницу
 
 
 

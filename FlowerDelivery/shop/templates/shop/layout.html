@@ -8,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    <link rel="icon" href="{% static 'shop/favicon.ico' %}" type="image/x-icon">
     {% block title %}
-    <title>Магазин Букетов</title>
+    <title>титул меняется</title>
     {% endblock %}
 </head>
 <body>
@@ -18,19 +18,14 @@
     <div class="container-fluid">
         <div class="row">
             <aside class="col-md-3 bg-light p-4">
-                <h4>Навигация</h4>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'home' %}" class="text-dark">Выбор букетов</a></li>
-                    <li><a href="{% url 'cabinet' %}" class="text-dark">Мои заказы</a></li>
-                </ul>
+                {% include 'shop/nav.html' %}
             </aside>
 
             <main class="col-md-9 p-4">
                 <h1 class="text-center">Добро пожаловать в наш магазин!</h1>
 
-
                 {% block content %}
-                <p class="mt-4">Здесь будет ваш контент.</p>
+                    <p class="mt-4">Здесь будет ваш контент.</p>
                 {% endblock %}
             </main>
         </div>
