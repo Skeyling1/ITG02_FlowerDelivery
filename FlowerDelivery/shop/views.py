@@ -15,6 +15,7 @@ def index(request):
         goods_base = request.POST['good_title']
         new_order = Order(user=user_base, goods=goods_base)
         new_order.save()
+        return redirect('new_order')
     return render(request, 'shop/index.html', {'goods': goods, 'username': username})
 
 
@@ -53,9 +54,19 @@ def logout_view(request):
     return redirect('home')  # Перенаправление на главную страницу или другую страницу
 
 
-
 @login_required
 def cabinet(request):
     orders = Order.objects.filter(user=request.user.username)
     username = request.user.username
     return render(request, 'shop/cabinet.html', {'orders': orders, 'username': username})
+
+
+@login_required
+def new_order(request):
+    orders = Order.objects.filter(user=request.user.username)
+    order = orders.last()
+    username = request.user.username
+    if request.method == 'GET':
+        order.delete()
+        return redirect('home')
+    return render(request, 'shop/new_order.html', {'order': order, 'username': username})
