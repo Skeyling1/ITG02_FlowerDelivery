@@ -33,6 +33,10 @@ def del_new_order(request):
     return redirect('home')
 
 
+def approve_new_order(request):
+    return redirect('home')
+
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)

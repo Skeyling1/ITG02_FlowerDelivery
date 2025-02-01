@@ -15,7 +15,11 @@
 
 {% endif %}
 
-<button type="submit">Подтвердить</button>
+<form action="{% url 'approve_new_order' %}" method="post" >
+                {% csrf_token %}
+                <button type="submit">Подтвердить</button>
+</form>
+
 
 
 <form action="{% url 'del_new_order' %}" method="post">
