@@ -11,6 +11,7 @@ import requests
 def index(request):
     goods = Good.objects.all()
     username = request.user.username
+    pictures = ['shop/img/1193.jpg', ]
     if request.method == 'POST':
         user_base = request.POST['username']
         goods_base = request.POST['good_title']
