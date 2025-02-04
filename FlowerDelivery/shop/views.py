@@ -30,12 +30,16 @@ def index(request):
         goods = Good.objects.all()
         username = request.user.username
         if request.method == 'POST':
-            user_base = request.POST['username']
-            goods_base = request.POST['good_title']
-            picture_base = request.POST['picture']
-            new_order = Order(user=user_base, goods=goods_base, picture=picture_base)
-            new_order.save()
-            return redirect('new_order')
+            if request.user.is_authenticated:
+                user_base = request.POST['username']
+                goods_base = request.POST['good_title']
+                picture_base = request.POST['picture']
+                new_order = Order(user=user_base, goods=goods_base, picture=picture_base)
+                new_order.save()
+                return redirect('new_order')
+            else:
+                return redirect('login')
+
 
     return render(request, 'shop/index.html', {'goods': goods, 'username': username})
 
