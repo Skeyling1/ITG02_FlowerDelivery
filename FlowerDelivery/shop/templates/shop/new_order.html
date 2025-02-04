@@ -7,29 +7,28 @@
 
 {% block content %}
 
-    <p>{{ username }} ваш новый заказ</p>
+<div class="container mt-5" style="max-width: 600px;">
+    <p class="h4 text-center">{{ username }}, ваш новый заказ</p>
 
-<form method="post" >
-                {% csrf_token %}
-
-                    <div class="card" style="width: 18rem;">
-                        <img src="{% static 'shop/img/1193.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ order.goods }}</h5>
-                            {{ form.as_p }}
-                            <button type="submit">Подтвердить</button>
-                        </div>
-                    </div>
-</form>
-
-
-
-
-
-<form action="{% url 'del_new_order' %}" method="post">
+    <form method="post">
         {% csrf_token %}
-        <button type="submit">Отменить</button>
-</form>
+        <div class="card mb-4" style="width: 100%;">
+            <img src="{% static order.picture %}" class="card-img-top" title="Designed by Freepik" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ order.goods }}</h5>
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">Подтвердить</button>
+            </div>
+        </div>
+    </form>
+
+    <form action="{% url 'del_new_order' %}" method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Отменить</button>
+    </form>
+</div>
 
 
 

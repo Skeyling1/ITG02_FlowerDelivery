@@ -3,22 +3,41 @@ from .forms import UserRegistrationForm, LoginForm, CustomerNotesForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .models import Good, Order
-import requests
+import asyncio
+import os
+from telegram import Bot
+
+TOKEN = "7399460186:AAGrswtwoU5TUgF1IfYoy7a6KVX-CwBaiUM"
+CHAT_ID = "5176442756"
+
 
 
 # Create your views here.
 
 def index(request):
-    goods = Good.objects.all()
-    username = request.user.username
-    pictures = ['shop/img/1193.jpg', ]
-    if request.method == 'POST':
-        user_base = request.POST['username']
-        goods_base = request.POST['good_title']
-        new_order = Order(user=user_base, goods=goods_base)
-        new_order.save()
-        return redirect('new_order')
+    if Good.objects.exists() == False:
+        Good(good_title='Ромашки', price='150', picture='shop/img/1.jpg').save()
+        Good(good_title='Белые розы', price='1000', picture='shop/img/2.jpg').save()
+        Good(good_title='Букет Мини', price='1000', picture='shop/img/3.jpg').save()
+        Good(good_title='Астры', price='1000', picture='shop/img/4.jpg').save()
+        Good(good_title='Букет Ассорти', price='1000', picture='shop/img/5.jpg').save()
+        Good(good_title='Оранжевые розы', price='1000', picture='shop/img/6.jpg').save()
+        Good(good_title='Красные розы', price='1000', picture='shop/img/7.jpg').save()
+        Good(good_title='Розовые розы', price='1000', picture='shop/img/8.jpg').save()
+        Good(good_title='Пионы', price='1000', picture='shop/img/9.jpg').save()
+    else:
+        goods = Good.objects.all()
+        username = request.user.username
+        if request.method == 'POST':
+            user_base = request.POST['username']
+            goods_base = request.POST['good_title']
+            picture_base = request.POST['picture']
+            new_order = Order(user=user_base, goods=goods_base, picture=picture_base)
+            new_order.save()
+            return redirect('new_order')
+
     return render(request, 'shop/index.html', {'goods': goods, 'username': username})
+
 
 
 @login_required
@@ -29,7 +48,10 @@ def new_order(request):
     if request.method == 'POST':
         form = CustomerNotesForm(request.POST)
         if form.is_valid():
-            #отпрвавляем в ЧАТ имя, товар, коммент, картинку
+            message = (f"Зарегестрирован новый заказ от: {request.user.username} \n"
+                       f"{order.goods} \n"
+                       f"Комментарий: {form.cleaned_data['comment']}")
+            asyncio.run(send_message(message, f"C:/GitHub/ITG02/FlowerDelivery/shop/static/{order.picture}"))
             return redirect('home')
     else:
         form = CustomerNotesForm()
@@ -90,26 +112,8 @@ def cabinet(request):
 
 
 
-
-
-def send_message(token, chat_id, message):
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {
-        'chat_id': chat_id,
-        'text': message
-    }
-
-    response = requests.post(url, json=payload)
-
-    if response.status_code == 200:
-        print("Сообщение отправлено успешно!")
-    else:
-        print("Ошибка при отправке сообщения:", response.text)
-
-
-if __name__ == "__main__":
-    bot_token = "YOUR_BOT_TOKEN"  # Замените на ваш токен
-    chat_id = "YOUR_CHAT_ID"  # Замените на ваш chat_id
-    message = "Привет, это сообщение из Python!"
-
-    send_message(bot_token, chat_id, message)
+async def send_message(message, IMAGE_PATH):
+    bot = Bot(token=TOKEN)
+    with open(IMAGE_PATH, 'rb') as image_file:
+        await bot.send_photo(chat_id=CHAT_ID, photo=image_file)
+    await bot.send_message(chat_id=CHAT_ID, text=message)

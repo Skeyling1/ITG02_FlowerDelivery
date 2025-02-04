@@ -18,12 +18,13 @@
                 {% csrf_token %}
 				  <div class="col">
                     <div class="card" style="width: 18rem;">
-                        <img src="{% static 'shop/img/1193.jpg' %}" class="card-img-top" alt="...">
+                        <img src="{% static good.picture %}" class="card-img-top" title="Designed by Freepik" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ good.good_title }}</h5>
                             <p class="card-text">{{ good.price }}</p>
                             <input type="hidden" name="username" value="{{ username }}">
                             <input type="hidden" name="good_title" value="{{ good.good_title }}">
+                            <input type="hidden" name="picture" value="{{ good.picture }}">
                             <button class="btn btn-primary" type="submit">Положить в корзину</button>
                         </div>
                     </div>
