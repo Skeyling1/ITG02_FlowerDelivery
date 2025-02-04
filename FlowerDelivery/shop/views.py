@@ -15,6 +15,7 @@ CHAT_ID = "5176442756"
 # Create your views here.
 
 def index(request):
+    goods = None
     if Good.objects.exists() == False:
         Good(good_title='Ромашки', price='150', picture='shop/img/1.jpg').save()
         Good(good_title='Белые розы', price='1000', picture='shop/img/2.jpg').save()
