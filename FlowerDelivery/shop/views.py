@@ -29,6 +29,10 @@ def index(request):
     else:
         goods = Good.objects.all()
         username = request.user.username
+        if request.user.is_authenticated:
+            user = True
+        else:
+            user = None
         if request.method == 'POST':
             if request.user.is_authenticated:
                 user_base = request.POST['username']
@@ -39,9 +43,7 @@ def index(request):
                 return redirect('new_order')
             else:
                 return redirect('login')
-
-
-    return render(request, 'shop/index.html', {'goods': goods, 'username': username})
+    return render(request, 'shop/index.html', {'goods': goods, 'username': username, 'user': user})
 
 
 
@@ -56,7 +58,7 @@ def new_order(request):
             message = (f"Зарегестрирован новый заказ от: {request.user.username} \n"
                        f"{order.goods} \n"
                        f"Комментарий: {form.cleaned_data['comment']}")
-            asyncio.run(send_message(message, f"C:/GitHub/ITG02/FlowerDelivery/shop/static/{order.picture}"))
+            asyncio.run(send_message(message, f"shop/static/{order.picture}"))
             return redirect('home')
     else:
         form = CustomerNotesForm()
