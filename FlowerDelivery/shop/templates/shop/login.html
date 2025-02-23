@@ -1,12 +1,12 @@
 {% extends 'shop/layout.html' %}
 
 {% block title %}
-    <title>вход в аккаунт</title>
+    <title>Вход в аккаунт</title>
 {% endblock %}
 
 {% block content %}
 
-    <h2>вход в аккаунт</h2>
+    <h2>Вход в аккаунт</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

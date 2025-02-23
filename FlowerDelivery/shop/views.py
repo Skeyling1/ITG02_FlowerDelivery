@@ -3,12 +3,13 @@ from .forms import UserRegistrationForm, LoginForm, CustomerNotesForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .models import Good, Order
+from .config import TOKEN, CHAT_ID
 import asyncio
 import os
 from telegram import Bot
 
-TOKEN = "7399460186:AAGrswtwoU5TUgF1IfYoy7a6KVX-CwBaiUM"
-CHAT_ID = "5176442756"
+TOKEN = TOKEN
+CHAT_ID = CHAT_ID
 
 
 
@@ -17,15 +18,15 @@ CHAT_ID = "5176442756"
 def index(request):
     goods = None
     if Good.objects.exists() == False:
-        Good(good_title='Ромашки', price='150', picture='shop/img/1.jpg').save()
-        Good(good_title='Белые розы', price='1000', picture='shop/img/2.jpg').save()
-        Good(good_title='Букет Мини', price='1000', picture='shop/img/3.jpg').save()
-        Good(good_title='Астры', price='1000', picture='shop/img/4.jpg').save()
-        Good(good_title='Букет Ассорти', price='1000', picture='shop/img/5.jpg').save()
-        Good(good_title='Оранжевые розы', price='1000', picture='shop/img/6.jpg').save()
-        Good(good_title='Красные розы', price='1000', picture='shop/img/7.jpg').save()
-        Good(good_title='Розовые розы', price='1000', picture='shop/img/8.jpg').save()
-        Good(good_title='Пионы', price='1000', picture='shop/img/9.jpg').save()
+        Good(good_title='Ромашки', price='857,97 ₸', picture='shop/img/1.jpg').save()
+        Good(good_title='Белые розы', price='4461,45 ₸', picture='shop/img/2.jpg').save()
+        Good(good_title='Букет Мини', price='3203,09 ₸', picture='shop/img/3.jpg').save()
+        Good(good_title='Астры', price='2001,93 ₸', picture='shop/img/4.jpg').save()
+        Good(good_title='Букет Ассорти', price='2608,23 ₸', picture='shop/img/5.jpg').save()
+        Good(good_title='Оранжевые розы', price='3225,97 ₸', picture='shop/img/6.jpg').save()
+        Good(good_title='Красные розы', price='3809,39 ₸', picture='shop/img/7.jpg').save()
+        Good(good_title='Розовые розы', price='3088,69 ₸', picture='shop/img/8.jpg').save()
+        Good(good_title='Пионы', price='2505,27 ₸', picture='shop/img/9.jpg').save()
     else:
         goods = Good.objects.all()
         username = request.user.username
