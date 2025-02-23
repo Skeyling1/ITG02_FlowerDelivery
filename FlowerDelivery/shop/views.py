@@ -6,7 +6,8 @@ from .models import Good, Order
 from .config import TOKEN, CHAT_ID
 import asyncio
 import os
-from telegram import Bot
+from aiogram import Bot
+from aiogram.types import FSInputFile
 
 TOKEN = TOKEN
 CHAT_ID = CHAT_ID
@@ -18,15 +19,15 @@ CHAT_ID = CHAT_ID
 def index(request):
     goods = None
     if Good.objects.exists() == False:
-        Good(good_title='Ромашки', price='857,97 ₸', picture='shop/img/1.jpg').save()
-        Good(good_title='Белые розы', price='4461,45 ₸', picture='shop/img/2.jpg').save()
-        Good(good_title='Букет Мини', price='3203,09 ₸', picture='shop/img/3.jpg').save()
-        Good(good_title='Астры', price='2001,93 ₸', picture='shop/img/4.jpg').save()
-        Good(good_title='Букет Ассорти', price='2608,23 ₸', picture='shop/img/5.jpg').save()
-        Good(good_title='Оранжевые розы', price='3225,97 ₸', picture='shop/img/6.jpg').save()
-        Good(good_title='Красные розы', price='3809,39 ₸', picture='shop/img/7.jpg').save()
-        Good(good_title='Розовые розы', price='3088,69 ₸', picture='shop/img/8.jpg').save()
-        Good(good_title='Пионы', price='2505,27 ₸', picture='shop/img/9.jpg').save()
+        Good(good_title='Ромашки', price='857,97 ₽', picture='shop/img/1.jpg').save()
+        Good(good_title='Белые розы', price='4461,45 ₽', picture='shop/img/2.jpg').save()
+        Good(good_title='Букет Мини', price='3203,09 ₽', picture='shop/img/3.jpg').save()
+        Good(good_title='Астры', price='2001,93 ₽', picture='shop/img/4.jpg').save()
+        Good(good_title='Букет Ассорти', price='2608,23 ₽', picture='shop/img/5.jpg').save()
+        Good(good_title='Оранжевые розы', price='3225,97 ₽', picture='shop/img/6.jpg').save()
+        Good(good_title='Красные розы', price='3809,39 ₽', picture='shop/img/7.jpg').save()
+        Good(good_title='Розовые розы', price='3088,69 ₽', picture='shop/img/8.jpg').save()
+        Good(good_title='Пионы', price='2505,27 ₽', picture='shop/img/9.jpg').save()
     else:
         goods = Good.objects.all()
         username = request.user.username
@@ -122,6 +123,6 @@ def cabinet(request):
 
 async def send_message(message, IMAGE_PATH):
     bot = Bot(token=TOKEN)
-    with open(IMAGE_PATH, 'rb') as image_file:
-        await bot.send_photo(chat_id=CHAT_ID, photo=image_file)
+    photo = FSInputFile(IMAGE_PATH)
+    await bot.send_photo(chat_id=CHAT_ID, photo=photo)
     await bot.send_message(chat_id=CHAT_ID, text=message)
